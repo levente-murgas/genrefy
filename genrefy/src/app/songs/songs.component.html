@@ -1,0 +1,21 @@
+<!-- songs.component.html -->
+<div class="container">
+    <div class="total-songs">
+      Total songs: {{ isLoading ? 'Loading...' : numberOfSongs }}
+    </div>
+    <div class="buttons">
+        <button [disabled]="isLoading" (click)="navigateToFilters()" class="btn btn-primary">Filters</button>
+        <button [disabled]="isLoading" (click)="openPlaylistNameDialog()" class="btn btn-primary">Save playlist</button>        
+    </div>
+    <div *ngIf="songs.length !== 0" class="songs-list">
+      <div *ngFor="let song of songs" class="song-item">
+        <div class="song-title">
+          <strong>{{ song.songName }}</strong>
+        </div>
+        <div class="song-artist">
+          {{ song.artistName }}
+        </div>
+      </div> 
+    </div>
+</div>
+   

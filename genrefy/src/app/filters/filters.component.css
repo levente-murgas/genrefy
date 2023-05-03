@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+.genre-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 1rem;
+margin-bottom: 2rem;
+}
+
+button {
+padding: 1rem;
+border: 1px solid #ccc;
+border-radius: 4px;
+background-color: white;
+cursor: pointer;
+}
+
+.genre-selected {
+background-color: #ccc;
+}
+  

@@ -1,0 +1,14 @@
+<div class="container">
+    <h1>Filter from {{ filteredSongCount }} songs</h1>
+    <div class="genre-grid">
+      <button
+        *ngFor="let genre of topGenres"
+        [ngClass]="{ 'genre-selected': selectedGenres.has(genre) }"
+        (click)="onGenreToggle(genre)"
+      >
+        {{ genre }}
+      </button>
+    </div>
+    <button (click)="onShowResult()">Show result</button>
+</div>
+
