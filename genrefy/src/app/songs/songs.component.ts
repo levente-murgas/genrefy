@@ -40,6 +40,7 @@ export class SongsComponent implements OnInit {
         if (this.accessToken) {
           this.isLoading = true;
           this.songs = await this.songsService.fetchLikedTracks(this.accessToken);
+          console.log(this.songs)
           this.numberOfSongs = this.songs.length;
           this.isLoading = false;
         } else {
@@ -56,6 +57,8 @@ export class SongsComponent implements OnInit {
   }
 
   savePlaylist(playlistName: string): void {
+    this.accessToken = localStorage.getItem('access_token');
+    console.log(this.songs)
     this.songsService.createPlaylist(this.accessToken!!, playlistName).subscribe(response => {
       const playlistId = response.id;
       const trackUris = this.songs.map(song => song.uri);

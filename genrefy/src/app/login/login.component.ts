@@ -23,15 +23,13 @@ export class LoginComponent implements OnInit {
     console.log('LoginComponent.ngOnInit() called');
     if (!this.code) {
       //wait 5 seconds
-      await new Promise(resolve => setTimeout(resolve, 5000));
       console.log('No code found, redirecting to auth code flow');
       await this.redirectToAuthCodeFlow(this.clientId);
     } else {
-      await new Promise(resolve => setTimeout(resolve, 5000));
       console.log('Code found, getting access token');
       const accessToken = await this.getAccessToken(this.clientId, this.code);
-      await new Promise(resolve => setTimeout(resolve, 5000));
       localStorage.setItem('access_token', accessToken);
+      console.log(accessToken)
       console.log('Access token saved to local storage');
       const profile = await this.loginService.fetchProfile(accessToken);
       localStorage.setItem('user_id', profile.id);

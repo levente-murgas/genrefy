@@ -55,6 +55,7 @@ export class SongsService {
 
   createPlaylist(accessToken:string, playlistName: string): Observable<any> {
     const userId = localStorage.getItem('user_id');
+    console.log(accessToken)
     const url = `https://api.spotify.com/v1/users/${userId}/playlists`;
     const body = {
       name: playlistName
