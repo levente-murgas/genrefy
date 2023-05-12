@@ -13,9 +13,9 @@ This project is a Spotify application that helps users create playlists based on
 
 ## Requirements
 
-- Node.js
-- Angular CLI
-- Spotify developer account
+- [Node.js and npm](https://nodejs.org/en/download/)
+- [Angular CLI](https://angular.io/cli)
+- [Spotify developer account](https://developer.spotify.com/)
 
 ## Setup and Installation
 
