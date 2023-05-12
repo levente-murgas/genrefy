@@ -51,6 +51,11 @@ After the application is running, you'll need to log in with your Spotify accoun
 
 You can filter your liked songs by genre, and the application will create a Spotify playlist with the name you specify containing these songs.
 
+## Screenshots
+
+![alt text](https://github.com/levente-murgas/genrefy/screenshots/songs.png?raw=true)
+
+![alt text](https://github.com/levente-murgas/genrefy/screenshots/filters.png?raw=true)
 
 ## Contributing
 
