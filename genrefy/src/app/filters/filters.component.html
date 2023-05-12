@@ -1,14 +1,21 @@
-<div class="container">
-    <h1>Filter from {{ filteredSongCount }} songs</h1>
-    <div class="genre-grid">
-      <button
+<mat-card appearance="outlined" class="container">
+  <mat-card-title>Filter from {{ filteredSongCount }} songs</mat-card-title>
+  <mat-card-content class="genre-grid">
+    <div class="genre-title">Your top genres</div>
+    <mat-chip-listbox multiple>
+      <mat-chip-option
         *ngFor="let genre of topGenres"
-        [ngClass]="{ 'genre-selected': selectedGenres.has(genre) }"
+        [selected]="selectedGenres.has(genre)"
         (click)="onGenreToggle(genre)"
+        color="primary"
+        selectable
       >
         {{ genre }}
-      </button>
-    </div>
-    <button (click)="onShowResult()">Show result</button>
-</div>
-
+      </mat-chip-option>
+    </mat-chip-listbox>
+  </mat-card-content>
+  <mat-card-actions class="buttons">
+    <button mat-raised-button color="primary" (click)="onShowResult()">Show result</button>
+    <button mat-raised-button color="accent" (click)="onClearFilters()">Clear all</button>
+  </mat-card-actions>
+</mat-card>

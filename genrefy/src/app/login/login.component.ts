@@ -18,16 +18,22 @@ export class LoginComponent implements OnInit {
       this.code = params['code'];
     });
   }
-  
+  /**
+ * Lifecycle hook that is called after data-bound properties of a directive are initialized.
+ *
+ * This method is used for the login process. It checks whether a code is present.
+ * If not, it redirects to get the auth code. If the code is present, it gets the access token,
+ * saves it in local storage, fetches the user profile, and navigates to the songs page.
+ */
   async ngOnInit() {
     console.log('LoginComponent.ngOnInit() called');
     if (!this.code) {
       //wait 5 seconds
       console.log('No code found, redirecting to auth code flow');
-      await this.redirectToAuthCodeFlow(this.clientId);
+      await this.loginService.redirectToAuthCodeFlow(this.clientId);
     } else {
       console.log('Code found, getting access token');
-      const accessToken = await this.getAccessToken(this.clientId, this.code);
+      const accessToken = await this.loginService.getAccessToken(this.clientId, this.code);
       localStorage.setItem('access_token', accessToken);
       console.log(accessToken)
       console.log('Access token saved to local storage');
@@ -37,63 +43,4 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/songs']);
     }
   }
-
-  async redirectToAuthCodeFlow(clientId: string) {
-    const verifier = this.generateCodeVerifier(128);
-    const challenge = await this.generateCodeChallenge(verifier);
-
-    localStorage.setItem("verifier", verifier);
-
-    const params = new URLSearchParams();
-    params.append("client_id", clientId);
-    params.append("response_type", "code");
-    params.append("redirect_uri", "http://localhost:4200/login");
-    params.append("scope", "user-library-read playlist-modify-public");
-    params.append("code_challenge_method", "S256");
-    params.append("code_challenge", challenge);
-
-    document.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
-  }
-
-  generateCodeVerifier(length: number) {
-    let text = '';
-    let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-    for (let i = 0; i < length; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
-  }
-
-  async generateCodeChallenge(codeVerifier: string) {
-    const data = new TextEncoder().encode(codeVerifier);
-    const digest = await window.crypto.subtle.digest('SHA-256', data);
-    return btoa(String.fromCharCode.apply(null, [...new Uint8Array(digest)]))
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_')
-        .replace(/=+$/, '');
-  }
-
-  async getAccessToken(clientId: string, code: string): Promise<string> {
-    const verifier = localStorage.getItem("verifier");
-
-    const params = new URLSearchParams();
-    params.append("client_id", clientId);
-    params.append("grant_type", "authorization_code");
-    params.append("code", code);
-    params.append("redirect_uri", "http://localhost:4200/login");
-    params.append("code_verifier", verifier!);
-
-    const result = await fetch("https://accounts.spotify.com/api/token", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: params
-    });
-
-    const { access_token } = await result.json();
-    return access_token;
-  }
-
-
-
 }

@@ -1,21 +1,26 @@
-<!-- songs.component.html -->
-<div class="container">
-    <div class="total-songs">
+<mat-card appearance="outlined" class="container">
+  <mat-card-header>
+    <mat-card-title class="totalSongs">
       Total songs: {{ isLoading ? 'Loading...' : numberOfSongs }}
-    </div>
-    <div class="buttons">
-        <button [disabled]="isLoading" (click)="navigateToFilters()" class="btn btn-primary">Filters</button>
-        <button [disabled]="isLoading" (click)="openPlaylistNameDialog()" class="btn btn-primary">Save playlist</button>        
-    </div>
-    <div *ngIf="songs.length !== 0" class="songs-list">
-      <div *ngFor="let song of songs" class="song-item">
-        <div class="song-title">
-          <strong>{{ song.songName }}</strong>
-        </div>
-        <div class="song-artist">
-          {{ song.artistName }}
-        </div>
-      </div> 
-    </div>
-</div>
-   
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="buttons">
+      <button  mat-raised-button color="primary" [disabled]="isLoading" (click)="navigateToFilters()">Filters</button>
+      <button  mat-raised-button color="accent" [disabled]="isLoading" (click)="openPlaylistNameDialog()">Save playlist</button>        
+  </mat-card-content>
+  <mat-card-content *ngIf="songs.length !== 0" class="songs-list">
+    <mat-card appearance="outlined" *ngFor="let song of songs" class="song-item">
+      <mat-card-header>
+        <mat-card-title>
+          {{ song.songName }}
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="song-artist">
+        {{ song.artistName }}
+      </mat-card-content>
+    </mat-card> 
+  </mat-card-content>
+  <mat-card-content *ngIf="isLoading">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </mat-card-content>
+</mat-card>
