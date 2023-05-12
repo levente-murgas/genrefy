@@ -53,9 +53,9 @@ You can filter your liked songs by genre, and the application will create a Spot
 
 ## Screenshots
 
-![alt text](https://github.com/levente-murgas/genrefy/screenshots/songs.png?raw=true)
+![alt text](https://github.com/levente-murgas/genrefy/blob/main/screenshots/songs.png)
 
-![alt text](https://github.com/levente-murgas/genrefy/screenshots/filters.png?raw=true)
+![alt text](https://github.com/levente-murgas/genrefy/blob/main/screenshots/filters.png)
 
 ## Contributing
 
